@@ -14,6 +14,7 @@ class User {
         // console.log(access_token)
         if (Token.isValid(access_token)) {
             AppStorage.store(username,access_token)
+            window.location = '/forum'
         }
     }
 
@@ -32,7 +33,9 @@ class User {
 
     logout(){
         AppStorage.clear();
+        window.location = '/forum'
     }
+
 
     name(){
         if (this.loggedIn()) {
