@@ -9,9 +9,15 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import Vuetify from "../plugins/vuetify"
-
+import VueSimplemde from 'vue-simplemde'
+import 'simplemde/dist/simplemde.min.css'
+import md from 'marked'
 import User from "./Helpers/User"
+
+window.md = md
+
 window.User = User
+Vue.component('vue-simplemde', VueSimplemde)
 
 window.EventBus = new Vue();
 /**

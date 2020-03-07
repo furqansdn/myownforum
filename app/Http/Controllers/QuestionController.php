@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Model\Question;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\QuestionResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class QuestionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['index','show']]);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +35,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        Question::create($request->all());
-        return response('Created', Response::HTTP_CREATED);
+        // $request['slug'] = Str::slug($request->title);
+        $question = auth()->user()->question()->create($request->all());
+        return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
     /**
